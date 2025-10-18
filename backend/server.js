@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import fetch from 'node-fetch';
+import { fileURLToPath } from 'url'; 
 import path from 'path';
 
 dotenv.config();
@@ -11,9 +12,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Load properties from JSON
-const PROPERTIES_PATH = path.resolve('./backend/properties.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Load properties from JSON
+const PROPERTIES_PATH = path.join(__dirname, 'properties.json'); 
 let PROPERTIES = [];
 try {
   const data = fs.readFileSync(PROPERTIES_PATH, 'utf8');
