@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import fetch from 'node-fetch';
+import path from 'path';
 
 dotenv.config();
 
@@ -11,15 +12,17 @@ app.use(cors());
 app.use(express.json());
 
 // Load properties from JSON
+const PROPERTIES_PATH = path.resolve('./backend/properties.json');
+
 let PROPERTIES = [];
 try {
-  const data = fs.readFileSync('./properties.json', 'utf8');
+  const data = fs.readFileSync(PROPERTIES_PATH, 'utf8');
   PROPERTIES = JSON.parse(data);
   console.log(`✓ Loaded ${PROPERTIES.length} properties`);
 } catch (err) {
   console.error('✗ Error loading properties.json:', err.message);
-  console.log('Run: cd python-rag && python process_data.py');
 }
+
 
 const AVAILABLE_CITIES = [...new Set(PROPERTIES.map(p => p.city).filter(c => c !== 'Unknown'))];
 
@@ -302,7 +305,7 @@ app.post('/api/search', async (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 
-const path = require('path');
+// const path = require('path');
 
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '../frontend/build')));
