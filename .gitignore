@@ -20,8 +20,6 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Generated files
-backend/properties.json
 
 # Logs
 *.log
