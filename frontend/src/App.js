@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = "https://nobrokerage-backend-dxf2.onrender.com/api";
 
 
 function PropertyCard({ property }) {
